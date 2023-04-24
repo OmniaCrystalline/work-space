@@ -3,27 +3,23 @@
 
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import "./AdderProduct.style.css";
-import axios from "axios";
-
-axios.defaults.baseURL = process.env.REACT_APP_URL;
+import "./Add.style.css";
+import { instance } from "../../axios/axios"
 
 export const HookForm = () => {
   const [pending, setpending] = useState(false);
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: { title: "", quantity: null, volume: null, price: null, type: '', usage: '', describe: '', file: null },
+  });
 
-  const onSubmit = (data) => {
-    const response = axios.post("/addOne", data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+  const onSubmit = async (data) => {
     setpending(true);
+    const response = await instance.post("/addOne", data);
+    
     if (response.data) {
-      reset({ ...data })
+      reset();
       setpending(false);
     }
-    return console.log('successfull');
   };
   return (
     <>
@@ -78,7 +74,9 @@ export const HookForm = () => {
           <option value='beauty'>beauty</option>
           <option value='clean'>clean</option>
         </select>
-        <input type='submit' />
+        <input
+          type='submit'       
+        />
       </form>
     </>
   );

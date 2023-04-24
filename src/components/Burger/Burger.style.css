@@ -1,0 +1,27 @@
+.drop{
+    background: lightblue;
+    position: absolute;
+    top: 0;left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.burger-container{
+    position: absolute;
+    top: 0;
+    right: -100px;
+    width: 100px;
+    height: 200px;
+    transition: transform 2s linear;
+    background: rgba(138, 138, 153, 0.5);
+    z-index: 100;
+}
+
+.active{
+    transform: translateX(-100px);
+}
+
+.invisible{
+    display: none;
+}

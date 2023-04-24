@@ -1,0 +1,49 @@
+.table {
+    display: grid;
+    gap: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid lightgrey;
+    padding: 5px;
+}
+
+.heading-item {
+    color: grey;
+    width: 100px;
+    text-align: center;
+}
+
+.table-img {
+    width: 30px;
+}
+
+.table-raw {
+    border: 1px solid sandybrown;
+    gap: 15px;
+}
+
+.table-elem {
+    text-align: center;
+}
+
+button {
+    width: 100px;
+    border: none;
+}
+
+.active-raw {
+    background-color: rgb(234, 234, 234);
+}
+
+.search{
+    padding: 5px;
+    outline: none;
+    border-radius: 5px;
+    border: lightgray 2px solid;
+}

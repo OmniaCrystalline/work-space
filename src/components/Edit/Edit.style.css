@@ -1,0 +1,12 @@
+.primary{
+    background: lightblue;
+}
+
+.danger{
+    background: lightcoral;
+}
+
+.backdrop{
+    background: lightgray;
+    padding: 10px;
+}
