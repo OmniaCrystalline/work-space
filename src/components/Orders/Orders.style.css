@@ -1,0 +1,31 @@
+.table-row {
+    display: flex;
+    min-width: 320px;
+    justify-content: space-between;
+    border-bottom: 2px solid lightgray;
+    padding: 10px;
+}
+
+.table-row>span {
+    width: 25%;
+}
+
+.order-info{
+    display: flex;
+    justify-content: space-around;
+    background-color: lightgray;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.order-info>button{
+    background: rgb(235, 233, 233);
+    border: 2px solid white;
+    border-radius: 5px;
+    height: 40px;
+    width: auto;
+}
+
+.order:not(:last-child){
+    margin-bottom: 15px;
+}

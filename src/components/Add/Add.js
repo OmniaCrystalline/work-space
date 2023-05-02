@@ -31,6 +31,7 @@ export const HookForm = () => {
           type='text'
           placeholder='title'
           required
+          className='search'
         />
         discription
         <input
@@ -38,6 +39,7 @@ export const HookForm = () => {
           placeholder='discription'
           type='text'
           required
+          className='search'
         />
         usage
         <input
@@ -45,8 +47,9 @@ export const HookForm = () => {
           type='text'
           placeholder='usage'
           required
+          className='search'
         />
-        file
+        image
         <input {...register("file")} type='file' required />
         price
         <input
@@ -54,6 +57,7 @@ export const HookForm = () => {
           type='number'
           placeholder='price'
           required
+          className='search'
         />
         volume
         <input
@@ -61,6 +65,7 @@ export const HookForm = () => {
           type='number'
           placeholder='volume'
           required
+          className='search'
         />
         quantity
         <input
@@ -68,15 +73,14 @@ export const HookForm = () => {
           type='number'
           placeholder='quantity'
           required
+          className='search'
         />
         type
-        <select {...register("type")} required>
+        <select {...register("type")} className='search' required>
           <option value='beauty'>beauty</option>
           <option value='clean'>clean</option>
         </select>
-        <input
-          type='submit'       
-        />
+        <input type='submit' className='search' />
       </form>
     </>
   );
