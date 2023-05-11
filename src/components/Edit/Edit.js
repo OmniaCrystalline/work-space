@@ -2,26 +2,41 @@
 import "./Edit.style.css";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { instance } from "../../axios/axios";
+import { instance, back } from "../../axios/axios";
 
 export const Editor = ({ elem: { _id, field }, closerEditor }) => {
   const [pending, setpending] = useState(false);
-  const [removingElem, setremovingElem] = useState(true);
+  const [removingElem, setremovingElem] = useState(false);
   const { register, reset, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
     setpending(true);
     data._id = _id;
-    try {
-      const response = await instance.patch("/editField", data);
-      if (response.data) {
-        reset();
-        setpending(false);
-        closerEditor()
-        console.log('response.data', response.data)
+    if (removingElem) {
+      try {
+        const thisIsDelete = await instance.delete("/deleteOne", {
+          params: { _id },
+        });
+        if (thisIsDelete.data) {
+          reset();
+          setpending(false);
+          closerEditor();
+        }
+      } catch (error) {
+        console.log("error", error);
       }
-    } catch (error) {
-      console.error(error);
+    } else {
+      try {
+        const response = await instance.patch("/editField", data);
+        if (response.data) {
+          reset();
+          setpending(false);
+          closerEditor();
+          console.log("response.data", response.data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -35,8 +50,9 @@ export const Editor = ({ elem: { _id, field }, closerEditor }) => {
           <input
             {...register(field)}
             placeholder={`${field} edit`}
-            type={field !== "img" ? field : "file"}
+            type={back === "http://localhost:3000" ? "file" : field}
             required
+            className="search"
           />
         )}
         {field === "_id" && (
@@ -45,20 +61,20 @@ export const Editor = ({ elem: { _id, field }, closerEditor }) => {
             <button
               type='button'
               data-field='approve'
-              onClick={() => setremovingElem(false)}>
+              onClick={() => setremovingElem(true)}>
               підтверджую
             </button>
           </>
         )}
         <input
           type='submit'
-          data-field='close'
+          data-field='edit'
           value={field !== "_id" ? "редагувати" : "видалити"}
-          disabled={removingElem && field === "_id"}
-          className={removingElem && field === "_id" ? "danger" : "primary"}
+          disabled={!removingElem && field === "_id"}
+          className={removingElem && field === "_id" ? "primary" : "danger"}
         />
       </form>
-      <button type='button' data-field='close'>
+      <button type='button' data-field='close' onClick={() => reset()}>
         x
       </button>
     </div>

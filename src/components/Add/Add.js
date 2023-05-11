@@ -1,10 +1,9 @@
 /** @format */
-//import axios from "axios";
-
+import "./Add.style.css";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import "./Add.style.css";
 import { instance } from "../../axios/axios"
+import { back } from "../../axios/axios";
 
 export const HookForm = () => {
   const [pending, setpending] = useState(false);
@@ -14,7 +13,8 @@ export const HookForm = () => {
 
   const onSubmit = async (data) => {
     setpending(true);
-    const response = await instance.post("/addOne", data);
+    const response = await instance.post("/addOne", data,
+      );
     
     if (response.data) {
       reset();
@@ -50,7 +50,13 @@ export const HookForm = () => {
           className='search'
         />
         image
-        <input {...register("file")} type='file' required />
+        <input
+          {...register("file")}
+          type={back === "http://localhost:3000" ? "file" : "text"}
+          className='search'
+          placeholder={back === "http://localhost:3000" ? "file" : "image link"}
+          required
+        />
         price
         <input
           {...register("price")}
