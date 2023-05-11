@@ -89,8 +89,8 @@ export const List = () => {
                   <span className='heading-item'>фото</span>
                   <img
                     className='table-elem table-img'
-                    src={`${back}/images/${img}`}
-                    alt={img}></img>
+                    src={img}
+                    alt={title}></img>
                   <button type='button' data-field='img'>
                     ред.
                   </button>
