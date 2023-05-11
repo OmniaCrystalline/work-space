@@ -3,6 +3,7 @@ import "./List.style.css";
 import { Editor } from "../Edit/Edit";
 import { useState, useEffect } from "react";
 import { instance } from "../../axios/axios";
+import {back} from '../../axios/axios'
 
 export const List = () => {
   const [list, setlist] = useState([]);
@@ -14,15 +15,12 @@ export const List = () => {
   });
   const [filter, setfilter] = useState("");
 
-  const pattern = /^http/;
-
   const getList = async () => {
     setpending(true);
     const res = await instance
       .get("/products")
       .catch((err) => console.error(err))
       .finally(() => setpending(false));
-    console.log('res.data.data', res.data.data)
     setlist(res.data.data);
   };
 
@@ -72,9 +70,6 @@ export const List = () => {
           onChange={(e) => setfilter(e.target.value)}></input>
         {filteredList?.length > 0 &&
           filteredList?.map(({ img, title, quantity, volume, price, _id, describe, usage, type }) => {
-            const imgUrl = pattern.test(img)
-              ? img
-              : `${process.env.REACT_APP_URL}static/${img}`;
             return (
               <div
                 className={
@@ -94,7 +89,7 @@ export const List = () => {
                   <span className='heading-item'>фото</span>
                   <img
                     className='table-elem table-img'
-                    src={imgUrl}
+                    src={`${back}/images/${img}`}
                     alt={img}></img>
                   <button type='button' data-field='img'>
                     ред.

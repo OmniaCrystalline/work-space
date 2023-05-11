@@ -14,7 +14,6 @@ export const Orders = () => {
         .get("/order")
         .catch((e) => console.error(e))
         .finally(() => setpending(false));
-      console.log("res", res.data);
       setorders(res.data.data);
     }, 1000);
 
@@ -55,7 +54,6 @@ export const Orders = () => {
                 <div className='table-row' key={order.title}>
                   сума:{" "}
                   {order.reduce((acc, curr) => {
-                    console.log("curr, acc", curr.price, curr.quantity, acc);
                     return acc + curr.price * curr.quantity;
                   }, 0)}{" "}
                   грн
