@@ -3,7 +3,6 @@ import "./List.style.css";
 import { Editor } from "../Edit/Edit";
 import { useState, useEffect } from "react";
 import { instance } from "../../axios/axios";
-import {back} from '../../axios/axios'
 
 export const List = () => {
   const [list, setlist] = useState([]);

@@ -22,6 +22,21 @@ export const Orders = () => {
     };
   }, []);
 
+  const markAsProcessed = async(_id) => {
+    console.log('_id', _id)
+    try {
+      const res = await instance.patch("/moveToArchive", _id, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      if(res.data) alert(`${{_id}} was marked as processed`)
+      return res.data;
+    } catch (error) {
+      console.log('error.message', error.message)
+    }
+  } 
+
   return (
     <>
       {pending && <p>pending...</p>}
@@ -32,7 +47,9 @@ export const Orders = () => {
               <div className='order-info'>
                 <p>замовник: {name}</p>
                 <p>тел.: {phone}</p>
-                <button type='button'>відмаркувати як оброблений</button>
+                <button type='button' 
+                onClick={() => markAsProcessed({_id})}
+                >відмаркувати як оброблений</button>
               </div>
               <ul>
                 <div className='table-row'>
