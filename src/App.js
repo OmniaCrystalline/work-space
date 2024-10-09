@@ -6,6 +6,7 @@ import { List } from "./components/List/List";
 import { Layout } from "./components/Layout/Layout";
 import { Orders } from "./components/Orders/Orders";
 import { Archive } from "./components/Archive/Archive";
+import CloudinaryUploadWidget from "./components/cloudinary/Widget";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
         <Route index path='/add' element={<HookForm />} />
         <Route path='/edit' element={<List />} />
         <Route path='/orders' element={<Orders />} />
-        <Route path='/archive' element={<Archive/>}/>
+        <Route path='/archive' element={<Archive />} />
+        <Route path='/widget' element={<CloudinaryUploadWidget />} />
       </Route>
     </Routes>
   );

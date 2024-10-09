@@ -19,6 +19,9 @@ export const Layout = () => {
           <NavLink to='/archive' className='navlink'>
             archive
           </NavLink>
+          <NavLink to='/widget' className='navlink'>
+            widget
+          </NavLink>
         </div>
         <div className='main'>
           <Outlet />
