@@ -13,14 +13,12 @@ export const HookForm = () => {
 
   const onSubmit = async (data) => {
     setpending(true);
-    console.log('data', data)
     const response = await instance.post("/addOne", data,
       );
     
     if (response.data) {
       reset();
       setpending(false);
-      console.log('res.data', response.data)
     }
   };
   return (

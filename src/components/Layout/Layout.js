@@ -2,7 +2,7 @@
 import './Layout.style.css'
 import { NavLink, Outlet } from "react-router-dom";
 
-export const Layout = () => {
+const Layout = () => {
   return (
     <>
       <div className='layout'>
@@ -19,9 +19,6 @@ export const Layout = () => {
           <NavLink to='/archive' className='navlink'>
             archive
           </NavLink>
-          <NavLink to='/widget' className='navlink'>
-            widget
-          </NavLink>
         </div>
         <div className='main'>
           <Outlet />
@@ -30,3 +27,6 @@ export const Layout = () => {
     </>
   );
 };
+
+
+export default Layout

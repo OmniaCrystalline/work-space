@@ -3,7 +3,7 @@ import "./Orders.style.css";
 import { useEffect, useState } from "react";
 import { instance } from "../../axios/axios";
 
-export const Orders = () => {
+const Orders = () => {
   const [orders, setorders] = useState([]);
   const [pending, setpending] = useState(false);
 
@@ -83,3 +83,5 @@ export const Orders = () => {
     </>
   );
 };
+
+export default Orders

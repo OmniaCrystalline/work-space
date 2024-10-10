@@ -6,7 +6,8 @@
 }
 
 .item {
-    display: flex;
+    display: grid;
+    gap: 20px;
     align-items: center;
     justify-content: space-between;
     border: 1px solid lightgrey;
@@ -26,6 +27,7 @@
 .table-raw {
     border: 1px solid sandybrown;
     gap: 15px;
+    display: grid;
 }
 
 .table-elem {
@@ -46,4 +48,11 @@ button {
     outline: none;
     border-radius: 5px;
     border: lightgray 2px solid;
+}
+
+@media screen and (min-width: 768px) {
+    .item{
+        display: flex;
+    }
+    
 }
