@@ -3,11 +3,35 @@ import "./Edit.style.css";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { instance, back } from "../../axios/axios";
+import UploadWidget2 from "../cloudinary/UploadWidget";
 
-export const Editor = ({ elem: { _id, field }, closerEditor }) => {
+const editProduct = async (data) => {
+  const response = await instance.patch("/editField", data);
+  return response;
+};
+
+export const Editor = ({ elem: { _id, field }, closerEditor, seteditor }) => {
   const [pending, setpending] = useState(false);
   const [removingElem, setremovingElem] = useState(false);
   const { register, reset, handleSubmit } = useForm();
+  const [url, seturl] = useState("");
+
+  const handleImage = async () => {
+    setpending(true);
+    if (url !== "")
+      try {
+        const response = await editProduct({
+          _id,
+          img: url,
+        });
+        if (response.status === 200) {
+          setpending(false);
+          seteditor(false);
+        }
+      } catch (error) {
+        console.log("error", error);
+      }
+  };
 
   const onSubmit = async (data) => {
     setpending(true);
@@ -20,14 +44,16 @@ export const Editor = ({ elem: { _id, field }, closerEditor }) => {
         if (thisIsDelete.data) {
           reset();
           setpending(false);
-          closerEditor();
+          seteditor(false);
         }
       } catch (error) {
         console.log("error", error);
       }
-    } else {
+    }
+    if (!data?.field || data?.field === "") return;
+    else {
       try {
-        const response = await instance.patch("/editField", data);
+        const response = await editProduct(data);
         if (response.data) {
           reset();
           setpending(false);
@@ -41,42 +67,60 @@ export const Editor = ({ elem: { _id, field }, closerEditor }) => {
   };
 
   return (
-    <div>
-      {pending && <div>Pending...</div>}
-      <form onSubmit={handleSubmit(onSubmit)} className='adder-container'>
-        {_id} - {field}
-        {field === "img" && <p>Додайте нове фото</p>}
-        {field !== "_id" && (
-          <input
-            {...register(field)}
-            placeholder={`${field} edit`}
-            type={back === "http://localhost:3000" ? "file" : field}
-            required
-            className="search"
-          />
-        )}
-        {field === "_id" && (
+    <>
+      <div className='editor-wrapper'>
+        {pending && <div>Pending...</div>}
+        {field !== "img" && field !== undefined && field !== "" && (
           <>
-            <p>Точно видаляти товар?</p>
-            <button
-              type='button'
-              data-field='approve'
-              onClick={() => setremovingElem(true)}>
-              підтверджую
+            <form onSubmit={handleSubmit(onSubmit)} className='adder-container'>
+              {_id} - {field}
+              {field !== "_id" && field !== "img" && (
+                <input
+                  {...register(field)}
+                  placeholder={`${field} edit`}
+                  type={back === "http://localhost:3000" ? "file" : field}
+                  required
+                  className='search'
+                />
+              )}
+              {field === "_id" && field !== "img" && field !== undefined && (
+                <>
+                  <p>Точно видаляти товар?</p>
+                  <button
+                    type='button'
+                    data-field='approve'
+                    onClick={() => setremovingElem(true)}>
+                    підтверджую
+                  </button>
+                </>
+              )}
+              {field !== "img" && (
+                <input
+                  type='submit'
+                  data-field='edit'
+                  value={field !== "_id" ? "редагувати" : "видалити"}
+                  disabled={!removingElem && field === "_id"}
+                  className={
+                    removingElem && field === "_id" ? "primary" : "danger"
+                  }
+                />
+              )}
+            </form>
+          </>
+        )}
+        {field === "img" && (
+          <>
+            <p>{url === "" ? "Додайте нове фото" : url}</p>
+            <UploadWidget2 seturl={seturl} />
+            <button onClick={handleImage} className='danger'>
+              download
             </button>
           </>
         )}
-        <input
-          type='submit'
-          data-field='edit'
-          value={field !== "_id" ? "редагувати" : "видалити"}
-          disabled={!removingElem && field === "_id"}
-          className={removingElem && field === "_id" ? "primary" : "danger"}
-        />
-      </form>
-      <button type='button' data-field='close' onClick={() => reset()}>
-        x
-      </button>
-    </div>
+        <button type='button' data-field='close' onClick={() => reset()}>
+          x
+        </button>
+      </div>
+    </>
   );
 };

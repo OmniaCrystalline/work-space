@@ -4,7 +4,7 @@ import { Editor } from "../Edit/Edit";
 import { useState, useEffect } from "react";
 import { instance } from "../../axios/axios";
 
-export const List = () => {
+const List = () => {
   const [list, setlist] = useState([]);
   const [pending, setpending] = useState(false);
   const [editor, seteditor] = useState(false);
@@ -68,88 +68,101 @@ export const List = () => {
           placeholder='search'
           onChange={(e) => setfilter(e.target.value)}></input>
         {filteredList?.length > 0 &&
-          filteredList?.map(({ img, title, quantity, volume, price, _id, describe, usage, type }) => {
-            return (
-              <div
-                className={
-                  editor && elem._id === _id ? "active-raw" : "table-raw"
-                }
-                key={_id}
-                onClick={(e) => editorToggle(e, _id)}>
-                <div className='item'>
-                  <span className='heading-item'>назва</span>
-                  <span className='table-elem'>{title}</span>
-
-                  <button type='button' data-field='title'>
-                    ред.
-                  </button>
+          filteredList?.map(
+            ({
+              img,
+              title,
+              quantity,
+              volume,
+              price,
+              _id,
+              describe,
+              usage,
+              type,
+            }) => {
+              return (
+                <div
+                  className={
+                    editor && elem._id === _id ? "active-raw" : "table-raw"
+                  }
+                  key={_id}
+                  onClick={(e) => editorToggle(e, _id)}>
+                  <div className='item'>
+                    <span className='heading-item'>назва</span>
+                    <span className='table-elem'>{title}</span>
+                    <button type='button' data-field='title'>
+                      ред.
+                    </button>
+                  </div>
+                  <div className='item'>
+                    <span className='heading-item'>фото</span>
+                    <img
+                      className='table-elem table-img'
+                      src={img}
+                      alt={title}></img>
+                    <button type='button' data-field='img'>
+                      ред.
+                    </button>
+                  </div>
+                  <div className='item'>
+                    <span className='heading-item'>кількість</span>
+                    <span className='table-elem'>{quantity}</span>
+                    <button type='button' data-field='quantity'>
+                      ред.
+                    </button>
+                  </div>
+                  <div className='item'>
+                    <span className='heading-item'>об'єм</span>
+                    <span className='table-elem'>{volume}</span>
+                    <button type='button' data-field='volume'>
+                      ред.
+                    </button>
+                  </div>
+                  <div className='item'>
+                    <span className='heading-item'>ціна</span>
+                    <span className='table-elem'>{price}</span>
+                    <button type='button' data-field='price'>
+                      ред.
+                    </button>
+                  </div>
+                  <div className='item'>
+                    <span className='heading-item'>метод корист.</span>
+                    <span className='table-elem'>{usage}</span>
+                    <button type='button' data-field='usage'>
+                      ред.
+                    </button>
+                  </div>
+                  <div className='item'>
+                    <span className='heading-item'>опис</span>
+                    <span className='table-elem'>{describe}</span>
+                    <button type='button' data-field='describe'>
+                      ред.
+                    </button>
+                  </div>
+                  <div className='item'>
+                    <span className='heading-item'>тип</span>
+                    <span className='table-elem'>{type}</span>
+                    <button type='button' data-field='type'>
+                      ред.
+                    </button>
+                  </div>
+                  <div className='item'>
+                    <span className='heading-item'>_id</span>
+                    <span className='table-elem'>{_id}</span>
+                    <button type='button' data-field='_id'>
+                      вид.
+                    </button>
+                  </div>
+                  {editor && elem._id === _id && (
+                    <Editor elem={elem} closerEditor={closerEditor} seteditor={seteditor} />
+                  )}
                 </div>
-                <div className='item'>
-                  <span className='heading-item'>фото</span>
-                  <img
-                    className='table-elem table-img'
-                    src={img}
-                    alt={title}></img>
-                  <button type='button' data-field='img'>
-                    ред.
-                  </button>
-                </div>
-                <div className='item'>
-                  <span className='heading-item'>кількість</span>
-                  <span className='table-elem'>{quantity}</span>
-                  <button type='button' data-field='quantity'>
-                    ред.
-                  </button>
-                </div>
-                <div className='item'>
-                  <span className='heading-item'>об'єм</span>
-                  <span className='table-elem'>{volume}</span>
-                  <button type='button' data-field='volume'>
-                    ред.
-                  </button>
-                </div>
-                <div className='item'>
-                  <span className='heading-item'>ціна</span>
-                  <span className='table-elem'>{price}</span>
-                  <button type='button' data-field='price'>
-                    ред.
-                  </button>
-                </div>
-                <div className='item'>
-                  <span className='heading-item'>метод корист.</span>
-                  <span className='table-elem'>{usage}</span>
-                  <button type='button' data-field='usage'>
-                    ред.
-                  </button>
-                </div>
-                <div className='item'>
-                  <span className='heading-item'>опис</span>
-                  <span className='table-elem'>{describe}</span>
-                  <button type='button' data-field='describe'>
-                    ред.
-                  </button>
-                </div>
-                <div className='item'>
-                  <span className='heading-item'>тип</span>
-                  <span className='table-elem'>{type}</span>
-                  <button type='button' data-field='type'>
-                    ред.
-                  </button>
-                </div>
-                <div className='item'>
-                  <span className='heading-item'>_id</span>
-                  <span className='table-elem'>{_id}</span>
-                  <button type='button' data-field='_id'>
-                    вид.
-                  </button>
-                </div>
-                {editor && elem._id === _id && (
-                  <Editor elem={elem} closerEditor={closerEditor} />
-                )}
-              </div>
-            );
-          })}
+              );
+            }
+          )}
       </div>
     </>
   );
 };
+
+export default List

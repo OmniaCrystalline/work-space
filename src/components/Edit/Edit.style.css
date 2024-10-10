@@ -10,3 +10,9 @@
     background: lightgray;
     padding: 10px;
 }
+
+@media screen and (min-width: 320px) {
+    .editor-wrapper{
+        width: 320px;
+    }
+}
