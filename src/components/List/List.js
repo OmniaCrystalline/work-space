@@ -14,6 +14,8 @@ const List = () => {
   });
   const [filter, setfilter] = useState("");
 
+  console.log("editor", editor);
+
   const getList = async () => {
     setpending(true);
     const res = await instance
@@ -154,7 +156,11 @@ const List = () => {
                     </button>
                   </div>
                   {editor && elem._id === _id && (
-                    <Editor elem={elem} closerEditor={closerEditor} seteditor={seteditor} />
+                    <Editor
+                      elem={elem}
+                      closerEditor={closerEditor}
+                      seteditor={seteditor}
+                    />
                   )}
                 </div>
               );
@@ -165,4 +171,4 @@ const List = () => {
   );
 };
 
-export default List
+export default List;

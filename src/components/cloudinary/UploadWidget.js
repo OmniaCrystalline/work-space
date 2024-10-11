@@ -1,5 +1,5 @@
 /** @format */
-const UploadWidget2 = ({seturl}) => {
+const UploadWidget2 = ({seturl, widgetStyles = ''}) => {
   
   const showWidget = async() => {
     let widget = await window.cloudinary.createUploadWidget(
@@ -16,7 +16,7 @@ const UploadWidget2 = ({seturl}) => {
     widget.open();
   };
   return (
-    <button data-field='img' onClick={() => showWidget()}>
+    <button data-field='img' className={widgetStyles} onClick={() => showWidget()}>
       upload
     </button>
   );

@@ -1,17 +1,35 @@
-.adder-container{
+.add-widget-container{
     display: flex;
     flex-direction: column;
-    width: 50vw;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
+    gap: 10px;
+    padding: 0 20px;
 }
 
-.adder-container * {
+.add-form-elem{
+    display: block;
+    height: 30px;
     padding: 5px;
-    margin: 5px;
+}
+
+.add-container{
+    width: 100%;
+    padding-top: 40px;
+}
+
+.adder-container{
+    display: grid;
+    padding: 10px 20px;
+    gap: 10px;
 }
 
 .radio-container{
     margin-right: auto;
 }
+
+.add-form-submit{
+    margin-top: 40px;
+    padding: 20px;
+    text-align: center;
+    background-color: rgb(222, 208, 183);
+}
+

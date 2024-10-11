@@ -3,15 +3,18 @@ import "./Add.style.css";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { instance } from "../../axios/axios"
-import { back } from "../../axios/axios";
+import UploadWidget2 from "../cloudinary/UploadWidget";
 
-export const HookForm = () => {
+const HookForm = () => {
+  const [url, seturl] = useState('')
   const [pending, setpending] = useState(false);
   const { register, handleSubmit, reset } = useForm({
     defaultValues: { title: "", quantity: null, volume: null, price: null, type: '', usage: '', describe: '', file: null },
   });
 
   const onSubmit = async (data) => {
+    if (url === '') return 
+    data.img = url
     setpending(true);
     const response = await instance.post("/addOne", data,
       );
@@ -22,8 +25,13 @@ export const HookForm = () => {
     }
   };
   return (
-    <>
-      {pending && <div>pending</div>}
+    <div className='add-container'>
+      {pending && <div>pending...</div>}
+      <div className='add-widget-container'>
+        <span>img</span>
+        <UploadWidget2 widgetStyles={"add-form-elem"} seturl={seturl} />
+      </div>
+
       <form onSubmit={handleSubmit(onSubmit)} className='adder-container'>
         title
         <input
@@ -31,7 +39,7 @@ export const HookForm = () => {
           type='text'
           placeholder='title'
           required
-          className='search'
+          className='add-form-elem'
         />
         discription
         <input
@@ -39,23 +47,15 @@ export const HookForm = () => {
           placeholder='discription'
           type='text'
           required
-          className='search'
+          className='add-form-elem'
         />
         usage
         <input
           {...register("usage")}
           type='text'
-          placeholder='usage'
+          placeholder=''
           required
-          className='search'
-        />
-        image
-        <input
-          {...register("file")}
-          type={back === "http://localhost:3000" ? "file" : "text"}
-          className='search'
-          placeholder={back === "http://localhost:3000" ? "file" : "image link"}
-          required
+          className='add-form-elem'
         />
         price
         <input
@@ -63,7 +63,7 @@ export const HookForm = () => {
           type='number'
           placeholder='price'
           required
-          className='search'
+          className='add-form-elem'
         />
         volume
         <input
@@ -71,7 +71,7 @@ export const HookForm = () => {
           type='number'
           placeholder='volume'
           required
-          className='search'
+          className='add-form-elem'
         />
         quantity
         <input
@@ -79,15 +79,21 @@ export const HookForm = () => {
           type='number'
           placeholder='quantity'
           required
-          className='search'
+          className='add-form-elem'
         />
         type
-        <select {...register("type")} className='search' required>
-          <option value='beauty'>beauty</option>
-          <option value='clean'>clean</option>
+        <select {...register("type")} className='add-form-elem' required>
+          <option value='beauty' className='add-form-elem'>
+            beauty
+          </option>
+          <option value='clean' className='add-form-elem'>
+            clean
+          </option>
         </select>
-        <input type='submit' className='search' />
+        <input type='submit' className='add-form-elem add-form-submit' />
       </form>
-    </>
+    </div>
   );
 };
+
+export default HookForm
