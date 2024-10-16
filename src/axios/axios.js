@@ -1,9 +1,12 @@
 /** @format */
 import axios from "axios";
-export const back = require(process.env.REACT_APP_URL)
+
+const { REACT_APP_URL } = process.env
+
+export const back = REACT_APP_URL
 
 export const instance = axios.create({
-  baseURL: process.env.REACT_APP_URL,
+  baseURL: REACT_APP_URL,
   headers: { "Content-Type": "multipart/form-data" },
 });
 
