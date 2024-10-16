@@ -2,7 +2,7 @@
 import "./Edit.style.css";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { instance, back } from "../../axios/axios";
+import { instance } from "../../axios/axios";
 import UploadWidget2 from "../cloudinary/UploadWidget";
 
 const editProduct = async (data) => {
@@ -78,7 +78,7 @@ export const Editor = ({ elem: { _id, field }, closerEditor, seteditor }) => {
                 <input
                   {...register(field)}
                   placeholder={`${field} edit`}
-                  type={back === "http://localhost:3000" ? "file" : field}
+                  type={field}
                   required
                   className='search'
                 />

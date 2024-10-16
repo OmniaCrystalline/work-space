@@ -14,8 +14,6 @@ const List = () => {
   });
   const [filter, setfilter] = useState("");
 
-  console.log("editor", editor);
-
   const getList = async () => {
     setpending(true);
     const res = await instance
